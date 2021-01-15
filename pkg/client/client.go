@@ -1,4 +1,4 @@
-package stack
+package client
 
 import (
 	"github.com/gophercloud/gophercloud"
@@ -7,8 +7,11 @@ import (
 	"opensvc/models"
 )
 
+var _ models.Vms = new(Compute)
+type Compute struct {
+}
 
-func Server_list (region string) (map[string][]interface{}, error){
+func (c *Compute) List(region string)(map[string][]interface{}, error){
 	provider := models.StackAuth(region)
 	sc, serviceErr := openstack.NewComputeV2(provider, gophercloud.EndpointOpts{})
 	if serviceErr != nil {
@@ -20,5 +23,8 @@ func Server_list (region string) (map[string][]interface{}, error){
 	}
 	servers, _ := allpages.GetBody().(map[string][]interface{})
 	return servers, nil
+}
+
+func (v *Compute) Get(region string, id int) {
 }
 

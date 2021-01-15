@@ -9,7 +9,7 @@ import (
 	"opensvc/pkg/setting"
 )
 
-var db *gorm.DB
+var Db *gorm.DB
 
 type Model struct {
 	ID       int `gorm:"primary_key; AUTO_INCREMENT; column:id"`
@@ -23,9 +23,11 @@ type Model struct {
 
 }
 
+
+
 func Setup() {
 	var err error
-	db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	Db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 			setting.DatabaseSetting.User,
 			setting.DatabaseSetting.Password,
 			setting.DatabaseSetting.URL,
@@ -33,8 +35,11 @@ func Setup() {
 	if err != nil {
 		log.Fatalf("model.Setup err : %v", err)
 	}
-	if db.HasTable(Model{}) == false {
-		db.CreateTable(Model{})
+	if Db.HasTable(Model{}) == false {
+		Db.CreateTable(Model{})
+	}
+	if Db.HasTable(Vm{}) == false{
+		Db.CreateTable(Vm{})
 	}
 
 

@@ -10,4 +10,5 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
+	gorm.io/datatypes v1.0.0
 )
